@@ -1,0 +1,25 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <form method="POST" action="/create">
+            <input type="text" name="name">
+            <input type="submit">
+        </form>
+        <table>
+            <tr>
+                <td>
+                    Nome
+                </td>
+            </tr>
+            {% for language in languages %}
+                <tr>
+                    <td>
+                        {{ languages }}
+                        {{ language.name }}
+                    </td>
+                </tr>    
+            {% endfor %}
+        </table>
+    </body>
+</html>
