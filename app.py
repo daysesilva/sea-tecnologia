@@ -33,11 +33,23 @@ def create():
     language = Language(name=request.form['name'])
     db_session.add(language)
     db_session.commit()
-    return redirect(url_for('index'))   
-    
-@app.route('/delete/<languge_id>/')
-def delete(languge_id):
-    language = Language.query.get(languge_id)
+    return redirect(url_for('index'))  
+
+@app.route('/update/<language_id>/', methods=['GET', 'POST'])
+def update(language_id):
+    language = Language.query.get(language_id)
+
+    if request.method == 'POST':
+        language.name = request.form['name']
+        db_session.add(language)
+        db_session.commit()
+        return redirect(url_for('index'))
+        
+    return render_template('update.html', language=language)
+ 
+@app.route('/delete/<language_id>/')
+def delete(language_id):
+    language = Language.query.get(language_id)
     db_session.delete(language)
     db_session.commit()
     return redirect(url_for('index'))

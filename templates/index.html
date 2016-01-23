@@ -2,7 +2,7 @@
     <head>
     </head>
     <body>
-        <form method="POST" action="/create">
+        <form method="POST" action="/create/">
             <input type="text" name="name">
             <input type="submit">
         </form>
@@ -13,7 +13,10 @@
                 </td>
                 <td>
                     Apagar
-                </td>                
+                </td> 
+                <td>
+                    Atualizar
+                </td>
             </tr>
             {% for language in languages %}
                 <tr>
@@ -22,6 +25,9 @@
                     </td>
                     <td>
                         <a href="/delete/{{ language.id }}/"> X </a>
+                    </td>
+                    <td>
+                        <a href="/update/{{ language.id }}/"> X </a>
                     </td>
                 </tr>    
             {% endfor %}
