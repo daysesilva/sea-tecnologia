@@ -11,12 +11,17 @@
                 <td>
                     Nome
                 </td>
+                <td>
+                    Apagar
+                </td>                
             </tr>
             {% for language in languages %}
                 <tr>
                     <td>
-                        {{ languages }}
                         {{ language.name }}
+                    </td>
+                    <td>
+                        <a href="/delete/{{ language.id }}/"> X </a>
                     </td>
                 </tr>    
             {% endfor %}

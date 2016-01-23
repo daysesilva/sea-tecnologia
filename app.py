@@ -4,10 +4,10 @@ from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
-engine = create_engine('sqlite:///:memory:', convert_unicode=True)
+engine = create_engine('sqlite:////home/vagrant/database.sqlite', convert_unicode=True)
 db_session = scoped_session(
     sessionmaker(
-        autocommit=True,
+        autocommit=False,
         autoflush=False,
         bind=engine
     )
@@ -28,12 +28,20 @@ def index():
     languages = Language.query.all()
     return render_template('index.html', languages=languages)
     
-@app.route('/create', methods=['POST'])
+@app.route('/create/', methods=['POST'])
 def create():
     language = Language(name=request.form['name'])
     db_session.add(language)
+    db_session.commit()
+    return redirect(url_for('index'))   
+    
+@app.route('/delete/<languge_id>/')
+def delete(languge_id):
+    language = Language.query.get(languge_id)
+    db_session.delete(language)
+    db_session.commit()
     return redirect(url_for('index'))
-
+    
 if __name__ == '__main__':
     Base.metadata.create_all(bind=engine)
     app.run(host='0.0.0.0')
