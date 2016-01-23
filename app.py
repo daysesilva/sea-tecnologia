@@ -1,10 +1,13 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
-engine = create_engine('sqlite:////home/vagrant/database.sqlite', convert_unicode=True)
+engine = create_engine(
+    os.environ.get('DATABASE_URL', 'sqlite:////home/vagrant/database.sqlite'),
+    convert_unicode=True)
 db_session = scoped_session(
     sessionmaker(
         autocommit=False,
