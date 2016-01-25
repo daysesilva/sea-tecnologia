@@ -18,8 +18,8 @@ db_session = scoped_session(
 Base = declarative_base()
 Base.query = db_session.query_property()
 
-class Language(Base):
-    __tablename__ = 'language'
+class Text(Base):
+    __tablename__ = 'text'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
     
@@ -28,32 +28,32 @@ class Language(Base):
 
 @app.route('/')
 def index():
-    languages = Language.query.all()
-    return render_template('index.html', languages=languages)
+    texts = Text.query.all()
+    return render_template('index.html', texts=texts)
     
 @app.route('/create/', methods=['POST'])
 def create():
-    language = Language(name=request.form['name'])
-    db_session.add(language)
+    text = Text(name=request.form['name'])
+    db_session.add(text)
     db_session.commit()
     return redirect(url_for('index'))  
 
-@app.route('/update/<language_id>/', methods=['GET', 'POST'])
-def update(language_id):
-    language = Language.query.get(language_id)
+@app.route('/update/<text_id>/', methods=['GET', 'POST'])
+def update(text_id):
+    text = Text.query.get(text_id)
 
     if request.method == 'POST':
-        language.name = request.form['name']
-        db_session.add(language)
+        text.name = request.form['name']
+        db_session.add(text)
         db_session.commit()
         return redirect(url_for('index'))
         
-    return render_template('update.html', language=language)
+    return render_template('update.html', text=text)
  
-@app.route('/delete/<language_id>/')
-def delete(language_id):
-    language = Language.query.get(language_id)
-    db_session.delete(language)
+@app.route('/delete/<text_id>/')
+def delete(text_id):
+    text = Text.query.get(text_id)
+    db_session.delete(text)
     db_session.commit()
     return redirect(url_for('index'))
     

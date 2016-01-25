@@ -17,13 +17,13 @@
                     Apagar
                 </td>
             </tr>
-            {% for language in languages %}
+            {% for text in texts %}
                 <tr>
                     <td>
-                        <a href="/update/{{ language.id }}/"> {{ language.name }} </a>
+                        <a href="/update/{{ text.id }}/"> {{ text.name }} </a>
                     </td>
                     <td>
-                        <a href="/delete/{{ language.id }}/"> X </a>
+                        <a href="/delete/{{ text.id }}/"> X </a>
                     </td>
                 </tr>    
             {% endfor %}
