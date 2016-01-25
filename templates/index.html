@@ -3,7 +3,7 @@
     </head>
     <body>
         <form method="POST" action="/create/">
-            <input type="text" name="name" placeholder="Seu Nome">
+            <input type="text" name="name" placeholder="Digite aqui">
             <input type="submit">
         </form>
         <table>
@@ -13,21 +13,15 @@
                 </td>
                 <td>
                     Apagar
-                </td> 
-                <td>
-                    Atualizar
                 </td>
             </tr>
             {% for language in languages %}
                 <tr>
                     <td>
-                        {{ language.name }}
+                        <a href="/update/{{ language.id }}/"> {{ language.name }} </a>
                     </td>
                     <td>
                         <a href="/delete/{{ language.id }}/"> X </a>
-                    </td>
-                    <td>
-                        <a href="/update/{{ language.id }}/"> X </a>
                     </td>
                 </tr>    
             {% endfor %}
